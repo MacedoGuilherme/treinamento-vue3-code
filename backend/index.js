@@ -19,7 +19,11 @@ const {
 } = process.env
 const authMiddleware = jwt({ secret: JWT_SECRET })
 app.use(bodyParser())
-app.use(cors())
+app.use(cors({
+  origin: '*', // ou '*' para permitir qualquer origem
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+}));
 
 const feedbacksHandler = CreateFeedbackHandler(database)
 const usersHandler = CreateUserHandler(database)
